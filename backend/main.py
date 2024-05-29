@@ -3,10 +3,14 @@ from starlette.middleware.cors import CORSMiddleware
 from services.config import get_settings
 from api.routes import router
 import uvicorn
-import sys
+from database.session import engine
+from database.models import Base
+
 
 settings = get_settings()
 
+#Ensure that database is created
+Base.metadata.create_all(engine)
 
 app = FastAPI(
     title= settings.project_name,
