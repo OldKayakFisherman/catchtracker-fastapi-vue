@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from database.models import Base
 
 @contextmanager
-def get_db_text_session():
+def get_db_test_session():
 
     engine = create_engine(
         'sqlite:///:memory:'
@@ -32,13 +32,13 @@ def create_test_catch_records(number):
     species = ['Bass', 'Crappie', 'Perch', 'Catfish']
     sky_conditions = ['Sunny', 'Partly Cloudy', 'Cloudy']
     terminal_tackle = ['swivel', '5/0 EWGHook', '2/0 Worm Hook', '3/16 Weight', '1/8 Weight']
-    techniques = ['Texas Rig', 'Aggressive Jerkbait Retrieve']
-    baits = ['Zoom Green Pumpkin Speed Craw', 'Rapala Purple/Yellow Jerkbait']
+    techniques = ['Texas Rig', 'Aggressive Jerkbait Retrieve', 'Ned Rig', 'Swimming']
+    baits = ['Zoom Green Pumpkin Speed Craw', 'Rapala Purple/Yellow Jerkbait', 'Red Shad Curly Tail Worm', 'Chartreuse Spinnerbait']
     rods = ['Rod 1','Rod 2', 'Rod 3']
 
     faker = Faker()
 
-    for i in range(1, number):
+    for i in range(1, (number + 1)):
 
         record = {
             "latitude": faker.latitude(),
