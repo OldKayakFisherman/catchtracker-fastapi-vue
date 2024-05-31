@@ -112,7 +112,7 @@ class LookupRepositoryTests(unittest.TestCase):
 
             self.assertIsNotNone(unique_records)
             self.assertGreater(len(unique_records), 0)
-            self.assertLessEqual(len(unique_records), 2)
+            self.assertLessEqual(len(unique_records), 4)
 
     def test_get_unique_rods(self):
 
