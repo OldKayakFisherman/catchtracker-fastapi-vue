@@ -10,3 +10,8 @@ class TestAPIRoutes(unittest.TestCase):
 
         response = client.get("/api/v1/lookups")
         self.assertTrue(response.status_code == 200)
+
+    def test_stats(self):
+
+        response = client.get("/api/v1/stats")
+        self.assertTrue(response.status_code == 200)
