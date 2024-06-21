@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Request
 from database.session import get_db_session
 from sqlalchemy.orm import Session
-from database.repositories import LookupRepository, StatRepository
+from database.repositories import LookupRepository, StatRepository, CatchRepository
 from api.parameters import Catch
 from helpers import assign_dict_from_variables
 
@@ -43,7 +43,9 @@ async def stats(db: Session = Depends(get_db_session)):
 @router.post('/addcatch')
 async def addCatch(catch: Catch, db: Session = Depends(get_db_session)):
 
-    db_model = assign_dict_from_variables(catch)
+    db_model_dict = assign_dict_from_variables(catch)
+
+    persisted_model = CatchRepository().add_catch(db_model_dict)
 
     
 
