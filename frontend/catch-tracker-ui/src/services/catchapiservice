@@ -1,0 +1,10 @@
+import axios from "axios";
+
+export default {
+    addCatch(data){
+        console.log(data)
+        return axios.post('http://localhost:5000/api/v1/addcatch', data).then((response) => {
+            return response.data;
+        });
+    }
+}
