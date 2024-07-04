@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import func, desc, text
 from database.models import CatchDetail, Media, SearchIndex
-from helpers import assign_variables_from_dict
+from helpers import assign_object_from_dict
 from typing import List
 from datetime import datetime
 
@@ -32,7 +32,7 @@ class CatchRepository:
         results = []
 
         for raw_catch_record in raw_catch_records:
-            model: CatchDetail = assign_variables_from_dict(CatchDetail(), raw_catch_record)
+            model: CatchDetail = assign_object_from_dict(CatchDetail(), raw_catch_record)
             db.add(model)
             results.append(model) 
 
@@ -43,7 +43,7 @@ class CatchRepository:
     def add_catch(self, db: Session, raw_catch_record: dict):
     
         #Rehydrate the model
-        model: CatchDetail = assign_variables_from_dict(CatchDetail(), raw_catch_record)
+        model: CatchDetail = assign_object_from_dict(CatchDetail(), raw_catch_record)
     
         db.add(model)
         db.flush()
@@ -60,13 +60,14 @@ class StatRepository:
         date_start_filter = f'{current_year}-01-01'
         date_end_filter = f'{current_year}-12-31'
         
-        result = db.query(func.count(CatchDetail.id)).\
+        return db.query(CatchDetail.species ,func.count(CatchDetail.id)).\
             filter(CatchDetail.catch_date >= date_start_filter). \
             filter(CatchDetail.catch_date <= date_end_filter). \
+            group_by(CatchDetail.species). \
             all()
         
-        if result:
-            return result[0][0]
+        #if result:
+        #    return result[0][0]
 
     def ytd_catch_stats_by_species(self, db: Session):
 
