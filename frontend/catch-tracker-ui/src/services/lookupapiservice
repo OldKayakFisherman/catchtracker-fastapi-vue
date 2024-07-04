@@ -1,0 +1,10 @@
+import axios from "axios";
+
+export default 
+{
+    getLookups(){
+        return axios.get('/lookups').then((response) => {
+            return response.data;
+        });
+    }
+}
