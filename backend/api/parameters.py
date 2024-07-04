@@ -1,8 +1,8 @@
-from fastapi import File
+from fastapi import UploadFile
 from pydantic import BaseModel
 from decimal import Decimal
 from datetime import datetime
-from typing import Union, List
+from typing import Union, List, Optional
 from typing_extensions import Annotated
 
 class Catch(BaseModel):
@@ -11,14 +11,13 @@ class Catch(BaseModel):
     longitude: Decimal
     catch_date: datetime
     species: str
-    weight: Union[Decimal, None]
-    water_temperature: Union[Decimal, None]
-    air_temperature: Union[Decimal, None]
-    water_depth: Union[Decimal, None]
-    sky_conditions: Union[str, None]
-    terminal_tackle: Union[str, None]
-    technique: Union[str, None]
-    bait: Union[str, None]
-    rod: Union[str, None]
-    files: Union[Annotated[List[bytes], File(...)], None]
-
+    weight: Optional[Decimal]= None
+    water_temperature: Optional[Decimal]= None
+    air_temperature: Optional[Decimal]= None
+    water_depth: Optional[Decimal]= None
+    sky_conditions: Optional[str]= None
+    terminal_tackle: Optional[str]= None
+    technique: Optional[str]= None
+    bait: Optional[str]= None
+    rod: Optional[str]=None
+    
