@@ -1,19 +1,12 @@
+import axios from "axios";
 
-export default class StatAPIService
+export default 
 {
-    getStats() {
-
-        axios({
-            method:'post',
-            url:'logout',
-            baseURL: '/stats',
-           })
-           .then(response => {
-              return response.data;
-           })
-           .catch(error => {
-               return -1;
-           });    
+    getStats(callback) {
+       
+        return axios.get('http://localhost:5000/api/v1/stats').then((response) => {
+            return response.data;
+        });
     }
-}
 
+}
