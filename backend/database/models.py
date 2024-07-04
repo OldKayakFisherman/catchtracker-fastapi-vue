@@ -53,8 +53,10 @@ class Media(Base):
     extension: Mapped[str] = mapped_column(nullable=False)
     mimetype: Mapped[str] = mapped_column(nullable=False)
     upload_date: Mapped[datetime] = mapped_column(nullable=False)
+    content: Mapped[FileField] = 
     catch_detail_id : Mapped[int] = mapped_column(ForeignKey("catch_details.id"))
     catch_detail: Mapped[CatchDetail] = relationship("CatchDetail", order_by=id)
+    
 
 class SearchIndex(Base):
 
