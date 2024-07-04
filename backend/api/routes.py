@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Request
+from fastapi import APIRouter, Depends, HTTPException, status, Request, UploadFile
 from database.session import get_db_session
 from sqlalchemy.orm import Session
 from database.repositories import LookupRepository, StatRepository, CatchRepository
 from api.parameters import Catch
-from helpers import assign_dict_from_variables
-
+from helpers import assign_dict_from_object
+from typing import List
 
 router = APIRouter(prefix="/v1", tags=["v1"])
 
@@ -43,10 +43,25 @@ async def stats(db: Session = Depends(get_db_session)):
 @router.post('/addcatch')
 async def addCatch(catch: Catch, db: Session = Depends(get_db_session)):
 
-    db_model_dict = assign_dict_from_variables(catch)
+    print(catch)
 
-    persisted_model = CatchRepository().add_catch(db_model_dict)
+    db_model_dict = assign_dict_from_object(catch)
 
-    
+    print(db_model_dict)
 
-    return status.HTTP_200_OK
+    persisted_model = CatchRepository().add_catch(db, db_model_dict)
+
+    return persisted_model.id
+
+@router.post('/addimage')
+async def addCatchImage(catchId: int, files: List[UploadFile],  db: Session = Depends(get_db_session)):
+
+    upload_files = []
+
+    for file in files:
+        upload_file = {
+            "content": await file.read(),
+            ""
+        }
+
+
