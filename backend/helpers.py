@@ -1,13 +1,13 @@
 
 
-def assign_variables_from_dict(target_class, source_dict: dict) -> object:
+def assign_object_from_dict(target_class, source_dict: dict) -> object:
 
     for key in source_dict.keys():
         setattr(target_class, key, source_dict[key])
 
     return target_class
 
-def assign_dict_from_variables(source_class) -> dict:
+def assign_dict_from_object(source_class) -> dict:
 
     result = {}
 
@@ -21,10 +21,7 @@ def assign_dict_from_variables(source_class) -> dict:
         'registry'
     ]
 
-
-
-
-    members = [attr for attr in dir(source_class) if not callable(getattr(source_class, attr)) and not attr.startswith("__")]
+    members = [attr for attr in dir(source_class) if not attr.startswith("__") and not callable(getattr(source_class, attr))]
 
     for member in members:
         if member not in property_exclusion_filter:
